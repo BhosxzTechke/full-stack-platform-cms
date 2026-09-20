@@ -14,14 +14,16 @@ function CardShell({ children, className }: { children: ReactNode; className?: s
 }
 
 export function CourseCard({
-  initial,
+  logo,
+  logoClassName,
   title,
   description,
   level,
   duration,
   moduleCount,
 }: {
-  initial: string;
+  logo: ReactNode;
+  logoClassName?: string;
   title: string;
   description: string;
   level: string;
@@ -30,8 +32,10 @@ export function CourseCard({
 }) {
   return (
     <CardShell>
-      <div className="mb-3 flex h-10 w-10 items-center justify-center rounded-sm bg-neutral-900 text-sm font-semibold text-white">
-        {initial}
+      <div
+        className={`mb-3 flex h-10 w-10 items-center justify-center rounded-sm text-sm font-semibold text-white ${logoClassName ?? "bg-neutral-900"}`}
+      >
+        {logo}
       </div>
       <h3 className="text-heading-3 font-medium text-neutral-900">{title}</h3>
       <p className="mt-1 text-body text-neutral-500">{description}</p>

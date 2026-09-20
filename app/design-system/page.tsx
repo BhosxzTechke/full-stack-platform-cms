@@ -364,7 +364,7 @@ export default function DesignSystemPage() {
         <Section number="12" title="Cards">
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <CourseCard
-              initial="N"
+              logo="N"
               title="Next.js for Production"
               description="Build scalable, high-performance web applications with Next.js."
               level="Intermediate"
