@@ -1,9 +1,9 @@
 import { type ButtonHTMLAttributes, type ReactNode } from "react";
-import { ExternalLink, PlayCircle } from "lucide-react";
+import { ArrowRight, ExternalLink, PlayCircle } from "lucide-react";
 import { Icon } from "./Icon";
 
 type ButtonVariant = "primary" | "secondary" | "tertiary" | "text";
-type TrailingIcon = "external-link" | "play";
+type TrailingIcon = "external-link" | "play" | "arrow-right";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: ButtonVariant;
@@ -14,6 +14,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 const trailingIcons = {
   "external-link": ExternalLink,
   play: PlayCircle,
+  "arrow-right": ArrowRight,
 };
 
 const variantClasses: Record<ButtonVariant, string> = {

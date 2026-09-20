@@ -17,6 +17,7 @@
   --color-neutral-100: #f1f5f9;
   --color-neutral-50: #fafafc;
   --color-white: #ffffff;
+  --color-cream: #fdf8f3;
 
   --background: var(--color-white);
   --foreground: var(--color-neutral-900);
@@ -39,6 +40,7 @@
   --color-neutral-200: var(--color-neutral-200);
   --color-neutral-100: var(--color-neutral-100);
   --color-neutral-50: var(--color-neutral-50);
+  --color-cream: var(--color-cream);
 
   --font-display: var(--font-playfair-display);
   --font-sans: var(--font-inter);
