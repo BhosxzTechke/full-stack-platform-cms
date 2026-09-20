@@ -56,7 +56,11 @@ export default function Home() {
             Explore Courses
           </Button>
           <div className="mt-10 w-full max-w-xl">
-            <Input placeholder="Ask anything about your learning..." shortcut="⌘K" />
+            <Input
+              aria-label="Search your learning"
+              placeholder="Ask anything about your learning..."
+              shortcut="⌘K"
+            />
           </div>
         </section>
 
