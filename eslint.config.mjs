@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    // Studio is a separate workspace with its own tsconfig and lint tooling
+    // (AGENTS.md §5) — linting it against the web tsconfig blows the heap.
+    "studio/**",
   ]),
 ]);
 
