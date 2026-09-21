@@ -185,7 +185,7 @@ Run these from the correct workspace and report the real output. Never claim a c
 - In web: type check, lint, a production build when routes, config, or server code change, and the dev server.
 - In Studio: deploy the Studio application, which is required before the Context MCP will serve the dataset, deploy the schema, and import content and config documents.
 
-After you implement, run the type check and lint at minimum, add a build when routes, config, or server modules changed, and for search or ingestion work verify against the live MCP endpoint.
+After you implement, run the type check and lint at minimum, add a build when routes, config, or server modules changed, and for search or ingestion work verify against the live MCP endpoint.`
 
 ---
 
