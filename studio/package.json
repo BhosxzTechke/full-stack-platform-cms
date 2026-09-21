@@ -6,7 +6,8 @@
     "dev": "sanity dev",
     "build": "sanity build",
     "deploy": "sanity deploy",
-    "typegen": "sanity schema extract --enforce-required-fields && sanity typegen generate"
+    "typegen": "sanity schema extract --enforce-required-fields && sanity typegen generate",
+    "seed": "tsx seed/index.ts"
   },
   "dependencies": {
     "@sanity/icons": "^3.8.0",
@@ -17,8 +18,11 @@
     "styled-components": "^6.5.3"
   },
   "devDependencies": {
+    "@sanity/client": "^6.24.1",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv": "^16.4.7",
+    "tsx": "^4.22.4",
     "typescript": "^5"
   }
 }
