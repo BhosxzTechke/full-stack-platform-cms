@@ -1,46 +1,46 @@
 import { Star } from "lucide-react";
 import { Icon } from "@/components/ui/Icon";
-import { Button } from "@/components/ui/Button";
+import { Button, ButtonLink } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { Input } from "@/components/ui/Input";
 import { CourseCard } from "@/components/ui/Card";
 import { NavBar } from "@/components/ui/NavBar";
-
-const courses = [
-  {
-    logo: "N",
-    logoClassName: "bg-neutral-900",
-    title: "Next.js for Production",
-    description: "Build scalable, high-performance web applications with Next.js.",
-    level: "Intermediate",
-    duration: "18h 24m",
-    moduleCount: 12,
-  },
-  {
-    logo: "🐳",
-    logoClassName: "bg-white border border-neutral-200 text-lg",
-    title: "Docker Essentials",
-    description: "Containerize applications and streamline your development workflow.",
-    level: "Beginner",
-    duration: "10h 12m",
-    moduleCount: 8,
-  },
-  {
-    logo: "TS",
-    logoClassName: "bg-[#3178c6]",
-    title: "TypeScript Deep Dive",
-    description: "Go beyond the basics and write safer, more expressive code.",
-    level: "Intermediate",
-    duration: "14h 36m",
-    moduleCount: 10,
-  },
-];
+import { getCourses } from "@/sanity/lib/data";
+import { urlFor } from "@/sanity/lib/image";
+import { formatDurationSeconds, formatLevel, sumDurations } from "@/lib/courseFormat";
 
 const barHeights = [40, 64, 96, 56, 80, 120, 32, 72, 104, 48];
 
-export default function Home() {
+// Homepage grid prefers popular courses (a curation call, not stored
+// data — the reference's 3 cards were placeholder content), filling any
+// remaining slots from the rest so the grid always shows 3 when possible.
+function pickFeaturedCourses<T extends { popular: boolean | null }>(courses: T[]): T[] {
+  const popular = courses.filter((course) => course.popular);
+  const rest = courses.filter((course) => !course.popular);
+  return [...popular, ...rest].slice(0, 3);
+}
+
+export default async function Home() {
+  const courses = await getCourses();
+  const featuredCourses = pickFeaturedCourses(courses).map((course) => {
+    const durationSeconds = sumDurations(
+      course.modules?.flatMap((courseModule) => courseModule.lessons?.map((lesson) => lesson.duration) ?? []) ?? []
+    );
+
+    return {
+      href: `/courses/${course.slug}`,
+      coverImageUrl: urlFor(course.coverImage).width(80).height(80).url(),
+      coverImageAlt: course.coverImage.alt,
+      title: course.title,
+      description: course.summary,
+      level: formatLevel(course.level),
+      duration: formatDurationSeconds(durationSeconds),
+      moduleCount: course.modules?.length ?? 0,
+    };
+  });
+
   return (
-    <div className="relative flex min-h-full flex-col overflow-hidden bg-cream">
+    <div className="relative flex min-h-screen flex-col overflow-hidden bg-cream">
       <NavBar />
       <main className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-6">
         <section className="flex flex-col items-center px-4 py-20 text-center sm:py-28">
@@ -67,13 +67,13 @@ export default function Home() {
         <section className="border-t border-neutral-200 py-12">
           <div className="mb-6 flex items-center justify-between">
             <h2 className="text-display-2 font-bold text-neutral-900">All Courses</h2>
-            <Button variant="text" trailingIcon="arrow-right">
+            <ButtonLink href="/courses" variant="text" trailingIcon="arrow-right">
               View all courses
-            </Button>
+            </ButtonLink>
           </div>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-            {courses.map((course) => (
-              <CourseCard key={course.title} {...course} />
+            {featuredCourses.map((course) => (
+              <CourseCard key={course.href} {...course} />
             ))}
           </div>
         </section>
